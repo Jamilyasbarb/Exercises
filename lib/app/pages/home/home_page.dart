@@ -1,3 +1,4 @@
+import 'package:exercicios/app/pages/home/selection_exercises_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -14,10 +15,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('sos'),
+        leading: Icon(Icons.arrow_back),
+        centerTitle: true,
+        title: Container(height: 50, child: Image.asset('assets/images/logo_positiva.png')),
       ),
       body: Center(
-        child: Text('Iniciando mais uma prova... Por favor Jesus me ajuda'),
+        child: SelectionExercisesComponent(),
       ),
     );
   }
