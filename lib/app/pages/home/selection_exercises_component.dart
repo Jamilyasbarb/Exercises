@@ -1,3 +1,4 @@
+import 'package:exercicios/app/pages/corrida/corrida_page.dart';
 import 'package:flutter/material.dart';
 
 class SelectionExercisesComponent extends StatelessWidget {
@@ -19,7 +20,9 @@ class SelectionExercisesComponent extends StatelessWidget {
                 IconButton( 
                   iconSize: 80,
                   icon: Icon(Icons.directions_run), 
-                  onPressed: () { },
+                  onPressed: () { 
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => CorridaPage()));
+                  },
                 ),
                 Text('Corrida'),
               ],
