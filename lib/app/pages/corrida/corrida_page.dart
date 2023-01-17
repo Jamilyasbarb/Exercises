@@ -1,3 +1,4 @@
+import 'package:exercicios/app/controllers/andamento_controller.dart';
 import 'package:exercicios/app/controllers/corrida_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -15,20 +16,23 @@ class _CorridaPageState extends State<CorridaPage> {
   Widget build(BuildContext context) {
 
     final controller = context.watch<CorridaController>();
-    debugPrint('${controller.lat}');
-    debugPrint('${controller.long}');
+    final andamentoController = context.watch<AndamentoController>();
+
+    debugPrint('---antigo lat${controller.lat}');
+    debugPrint('---antigo long${controller.long}')  ;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text('Corrida'),
-      ),
+      ),  
       body: SizedBox(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Expanded(
-              flex: 1,
+            SizedBox(
+              height: 400,
               child: GoogleMap(
                 initialCameraPosition: CameraPosition(
                   target: LatLng(controller.lat, controller.long),
@@ -40,13 +44,22 @@ class _CorridaPageState extends State<CorridaPage> {
                 onMapCreated: controller.onMapCreated,
               ),
             ),
-            Expanded(
-              child: ClipOval(
+            Container(
+              height: 50,
+            ),
+            ClipOval(
+              child: Container(
+                height: 120,
+                width: 120,
+                color: Colors.red,
                 child: TextButton(
-                  child: Text('Iniciar'),
-                  onPressed: (){},
+                  child: Text('Iniciar', style: TextStyle(color: Colors.white),),
+                  onPressed: (){
+                    andamentoController.start();
+                    Navigator.pushNamed(context, 'andamento');
+                  },
                 ),
-              ), 
+              ),
             ),
           ],
         ),
