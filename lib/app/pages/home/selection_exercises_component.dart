@@ -25,7 +25,7 @@ class SelectionExercisesComponent extends StatelessWidget {
                   },
                 ),
                 Text('Corrida'),
-              ],
+              ],  
             ),
           ),
           Card(
