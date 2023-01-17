@@ -54,9 +54,9 @@ class AndamentoController extends ChangeNotifier{
     minutes = 0;
     hours = 0;
 
-    digitSeconds = '00';
-    digitMinutes = '00';
-    digitHours = '00';
+    // digitSeconds = '00';
+    // digitMinutes = '00';
+    // digitHours = '00';
 
     started = false;
     notifyListeners();

@@ -49,6 +49,7 @@ class _ControlsComponentState extends State<ControlsComponent> {
                 child: Text('Concluir', style: TextStyle(color: Colors.white),),
                 onPressed: () {
                   andamentoController.reset();
+                  Navigator.of(context).pushReplacementNamed('progresso');
                 },
               ),
             ),
