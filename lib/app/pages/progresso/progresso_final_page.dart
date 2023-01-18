@@ -13,10 +13,14 @@ class ProgressoFinalPage extends StatefulWidget {
 
 class _ProgressoFinalPageState extends State<ProgressoFinalPage> {
   @override
+  void initState() {
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-
     final andamentoController = context.watch<AndamentoController>();
     final corridaController = context.watch<CorridaController>();
+    corridaController.getPolyPoinsts();
     
     return Scaffold(
       appBar: AppBar(
@@ -28,8 +32,8 @@ class _ProgressoFinalPageState extends State<ProgressoFinalPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children:  [
-            ListTile(
-              leading: Icon(Icons.person),
+             ListTile(
+              leading: Icon(Icons.account_circle, size: 60,),
               title: Text('nome do usuário'),
               subtitle: Text('caminhada'),
             ),
@@ -46,7 +50,7 @@ class _ProgressoFinalPageState extends State<ProgressoFinalPage> {
                       Column(
                         children: [
                           Text('Distâcia total'),
-                          Text('${corridaController.distancia}    km'),
+                          Text('${corridaController.distancia.toStringAsFixed(2)}       mm'),
                         ],
                       ),
                       Column(
@@ -64,8 +68,25 @@ class _ProgressoFinalPageState extends State<ProgressoFinalPage> {
                     initialCameraPosition: CameraPosition(
                       target: LatLng(corridaController.lat, corridaController.long),
                       zoom: 18
-                    ), 
-                    myLocationEnabled: true,
+                    ),
+                    polylines: {
+                      Polyline(
+                        polylineId: const PolylineId("route"),
+                        points: corridaController.polylineCoordinates,
+                        color: Colors.blue,
+                        width: 6,
+                      )
+                    }, 
+                    markers:{
+                      Marker(
+                        markerId: MarkerId("source"),
+                        position: LatLng(corridaController.lat, corridaController.long),
+                      ),
+                      Marker(
+                        markerId: MarkerId("destination"),
+                        position: LatLng(corridaController.latAtualizada, corridaController.longAtualizada),
+                      ),
+                    }, 
                     mapType: MapType.normal,
                   ),
                 ),

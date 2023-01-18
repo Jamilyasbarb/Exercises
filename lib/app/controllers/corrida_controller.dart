@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -9,6 +10,7 @@ class CorridaController extends ChangeNotifier{
   double longAtualizada = 0.0;
   double distancia = 0.0;
   String erro = '';
+  List<LatLng> polylineCoordinates = [];
   late GoogleMapController _mapsController;
 
   get mapsController => _mapsController;
@@ -73,5 +75,19 @@ class CorridaController extends ChangeNotifier{
       notifyListeners();
     });
     return distancia = Geolocator.distanceBetween(lat,long,latAtualizada,longAtualizada);
+  }
+  
+ getPolyPoinsts() async{
+    PolylinePoints polylinePoints = PolylinePoints();
+    PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
+      'ANDROID_MAPS_APIKEY', 
+      PointLatLng(lat, long), 
+      PointLatLng(latAtualizada, longAtualizada)
+    );
+
+    if(result.points.isNotEmpty){
+      result.points.forEach((PointLatLng point) => polylineCoordinates.add(LatLng(point.latitude, point.longitude)));
+    }
+    notifyListeners();
   }
 } 
